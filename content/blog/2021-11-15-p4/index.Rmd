@@ -31,22 +31,6 @@ population = population %>%
 
 
 ```{r}
-options(warn = -1)
-fig <- plot_ly(population, x = ~YEAR, y = ~`Under 15`, name = 'Under 15', type = 'scatter', mode = 'lines') 
-fig <- fig %>% add_trace(y = ~`Over 64`, name = 'Over 64', mode = 'bar') 
-fig <- fig %>% add_trace(y = ~`Over 64`, name = 'Over 64', mode = 'lines+markers') 
-fig <- fig %>%
-  layout(showlegend = T,
-         xaxis = list(title = 'Year'), 
-         yaxis = list(title = 'Percent (%)'),
-         legend = list(orientation = "h",   # show entries horizontally
-                     xanchor = "center",  # use center of legend as anchor
-                     x = 0.8))
-
-fig
-```
-
-```{r}
 fig <- plot_ly(population, x = ~YEAR, y = ~`Under 15`, type = 'bar', name = 'Under 15', text = ~`Under 15`, textposition = 'auto')
 fig <- fig %>% add_trace(y = ~`Over 64`, name = 'Over 64', text = ~`Over 64`, textposition = 'auto') 
 fig <- fig %>%

@@ -1,0 +1,47 @@
+---
+title: Trend of Working Population in Australia
+author: Echo
+date: 2021-11-15T10:00:00
+slug: []
+categories: []
+meta_img: images/image.png
+description: Description for the page
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+library(highcharter) 
+library(tidyverse)
+library(xts)
+
+population = read.csv("state.csv")
+names(population)[3] = "percent"
+population = population %>% 
+    filter(LABEL == "Australia")
+
+gdp = read.csv("GDP.csv", skip = 4)
+gdp = gdp %>% select(1,2,5:65) %>% pivot_longer(cols = X1960:X2020, names_to='year', values_to='gdp')
+gdp = gdp %>% 
+    mutate(year = as.numeric(str_extract(year, "[0-9]+"))) %>% 
+    filter(Country.Name == "Australia") %>% 
+    rename(LABEL = Country.Name, YEAR = year)
+```
+
+```{r}
+dat = inner_join(population %>% select(LABEL, YEAR, percent),
+              gdp %>% select(LABEL, YEAR, gdp))
+dat$YEAR = as.factor(dat$YEAR)
+```
+
+```{r}
+hchart(dat, hcaes(x = YEAR), type="line") %>%
+    hc_yAxis_multiples(list(title = list(text = "GDP Growth (%)"), opposite = FALSE),
+                       list(showLastLabel = FALSE, opposite = TRUE, title = list(text = "Working population (%)"))) %>% 
+    hc_add_series(dat[, "gdp"], yAxis = 0, showInLegend = TRUE, name = "GDP Growth (%)") %>% 
+    hc_add_series(dat[, "percent"], yAxis = 1, showInLegend = TRUE, name = "Working population (%)")
+```
+

@@ -1,0 +1,43 @@
+---
+title: GDP Growth history in Australia
+author: Echo
+date: 2021-11-15T11:00:00
+slug: []
+categories: []
+meta_img: images/image.png
+description: Description for the page
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+
+```{r}
+library(tidyverse)
+library(plotly)
+
+gdp = read.csv("GDP.csv", skip = 4)
+gdp = gdp %>% select(1,2,5:65) %>% pivot_longer(cols = X1960:X2020, names_to='year', values_to='gdp')
+gdp = gdp %>% 
+    filter(Country.Name == "Australia") %>% 
+    mutate(year = as.numeric(str_extract(year, "[0-9]+"))) %>% 
+    arrange(year)
+```
+
+```{r}
+
+options(warn = -1)
+fig <- plot_ly(gdp, type = 'scatter', mode = 'lines')%>%
+  add_trace(x = ~year, y = ~gdp, name = '', line=list(color='blue'))%>%
+  layout(showlegend = F,
+         xaxis = list(title = 'Year'), 
+         yaxis = list(title = 'GDP growth (annual %)'))
+
+fig <- fig %>%
+  layout(
+         plot_bgcolor='#ffff')
+
+fig
+```
+

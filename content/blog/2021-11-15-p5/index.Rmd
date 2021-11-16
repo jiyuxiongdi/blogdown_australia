@@ -1,0 +1,69 @@
+---
+title: Trend of Working population in Australia by State
+author: Echo
+date: 2021-11-15T08:00:00
+slug: []
+categories: []
+meta_img: images/image.png
+description: Description for the page
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+library(highcharter) 
+library(tidyverse)
+library(plotly)
+
+population = read.csv("state.csv")
+names(population)[3] = "percent"
+population = population %>% 
+    filter(LABEL != "Australia")
+```
+
+In 2016
+
+```{r}
+hcmap(
+    map = "countries/au/au-all", # high resolution world map
+    data = population %>% filter(YEAR == 2016), # name of dataset
+    joinBy = c("name", "LABEL"),
+    value = "percent",
+    name = "(%)", 
+    dataLabels = list(enabled = TRUE, format = "{point.name}"),
+    showInLegend = TRUE, # hide legend
+    nullColor = "#DADADA",
+    download_map_data = TRUE
+) %>%
+    hc_mapNavigation(enabled = TRUE) 
+```
+
+Trend
+
+```{r}
+population = population %>% 
+    select(LABEL, YEAR, percent) %>% 
+    pivot_wider(names_from = LABEL, values_from = percent)
+```
+
+```{r}
+options(warn = -1)
+fig <- plot_ly(population, x = ~YEAR, y = ~`New South Wales`, name = "New South Wales", type = 'scatter', mode = 'lines') 
+
+for (n in names(population)[3:9]) {
+    fig = fig %>% add_trace(y = population[[n]], name = n, mode = 'lines+markers')
+}
+
+fig <- fig %>%
+  layout(showlegend = T,
+         xaxis = list(title = 'Year'), 
+         yaxis = list(title = 'Working age population (%)'),
+         legend = list(orientation = "h",   # show entries horizontally
+                     xanchor = "center",  # use center of legend as anchor
+                     x = 0.5, y=-0.2))
+
+fig
+```

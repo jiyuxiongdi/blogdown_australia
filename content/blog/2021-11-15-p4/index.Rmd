@@ -1,0 +1,46 @@
+---
+title: Trend of Non Working Population in Australia
+author: Echo
+date: 2021-11-15T09:00:00
+slug: []
+categories: []
+meta_img: images/image.png
+description: Description for the page
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+library(plotly) 
+library(tidyverse)
+
+population = read.csv("state.csv")
+population = population %>% 
+    filter(LABEL == "Australia") %>% 
+    mutate(`Under 15` = X0.14,
+           `Working Population` = Working) %>% 
+    mutate(`Over 64` = 100 - `Under 15` - `Working Population`) %>% 
+    mutate(YEAR = as.factor(YEAR))
+# population = population %>% 
+#     select(YEAR, `Under 14`, `Working Population`, `Over 64`) %>% 
+#     pivot_longer(`Under 14`:`Over 64`, names_to = "group") %>% 
+#     filter(group != "Working Population")
+```
+
+
+```{r}
+options(warn = -1)
+fig <- plot_ly(population, x = ~YEAR, y = ~`Under 15`, name = 'Under 15', type = 'scatter', mode = 'lines') 
+fig <- fig %>% add_trace(y = ~`Over 64`, name = 'Over 64', mode = 'lines+markers') %>%
+  layout(showlegend = T,
+         xaxis = list(title = 'Year'), 
+         yaxis = list(title = 'Percent (%)'),
+         legend = list(orientation = "h",   # show entries horizontally
+                     xanchor = "center",  # use center of legend as anchor
+                     x = 0.8))
+
+fig
+```
+

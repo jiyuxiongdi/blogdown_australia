@@ -41,7 +41,7 @@ hcmap(
     name = "(%)", 
     dataLabels = list(enabled = TRUE, format = "{point.name}"),
     showInLegend = TRUE, # hide legend
-    nullColor = "#DADADA",
+    nullColor = "#DADADA", 
     download_map_data = TRUE
 ) %>%
     hc_mapNavigation(enabled = TRUE) 

@@ -13,6 +13,8 @@ description: Description for the page
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 ```
 
+##### While Australia's GDP growth rate fluctuates to a certain extent, it maintains a downward trend. This is because the economic development in 2011 may have been affected by the aftermath of the 2008 financial crisis. The 2008 financial crisis had a profound impact on Australian residents in both economic and social dimensions. Specifically, changes in subjective well-being and financial pressure restrained their desire to consume (Saunders & Wong 2011). Note that the working population in Australia is also showing a downward trend. 
+
 ```{r}
 library(highcharter) 
 library(tidyverse)
@@ -45,3 +47,9 @@ hchart(dat, hcaes(x = YEAR), type="line") %>%
     hc_add_series(dat[, "percent"], yAxis = 1, showInLegend = TRUE, name = "Working population (%)")
 ```
 
+
+<div class="alert alert-light" role="alert" style="width:100%">
+Data source: Australian Bureau of Statistics 2011-2016.
+
+Source: Saunders P & Wong M 2011, ‘The social impact of the global financial crisis in Australia’, The Australian journal of social, pp. 291-309, DOI:10.1002/j.1839-4655.2011.tb00220.x.
+</div>

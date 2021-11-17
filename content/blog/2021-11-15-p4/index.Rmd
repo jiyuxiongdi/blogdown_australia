@@ -12,6 +12,8 @@ description: Description for the page
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 ```
 
+##### The aging population has risen, while the percentage of young people has remained the same. This would gradually form an 'inverted pyramid' population structure. We need to be alert to this demographic problem. This is because it may result in low productivity, insufficient labor supply, and financial health system burdens. At the same time, the increase in the number of retirees would cause their savings to be withdrawn, accelerating the decline in the total savings of an economy. Additionally, a low-productive working population would lead to a decline in economic output and aggravate the decline in income levels and investment from domestic and foreign markets (UN report 2019). Most of these issues have a direct or indirect negative impact on economic development.
+
 ```{r}
 library(plotly) 
 library(tidyverse)
@@ -44,3 +46,8 @@ fig <- fig %>%
 fig
 ```
 
+<div class="alert alert-light" role="alert" style="width:100%">
+Data source: Australian Bureau of Statistics 2011-2016.
+
+Source: UN report 2019, ‘ABOUT AGING POPULATION-PROBLEMS & SOLUTIONS’.
+</div>

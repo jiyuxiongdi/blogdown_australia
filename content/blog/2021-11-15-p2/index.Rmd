@@ -12,6 +12,7 @@ description: Description for the page
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 ```
 
+##### During these recent two decades, Australia's GDP growth rate has basically shown a downward trend. In particular, it encountered a pandemic lockdown in 2020. The Australian authorities have even adopted the strictest epidemic lockdown, such as banning outdoor sports and dog walking (Arora 2020). This obviously has a negative impact on economic development.
 
 ```{r}
 library(tidyverse)
@@ -26,7 +27,6 @@ gdp = gdp %>%
 ```
 
 ```{r}
-
 options(warn = -1)
 fig <- plot_ly(gdp, type = 'scatter', mode = 'lines')%>%
   add_trace(x = ~year, y = ~gdp, name = '', line=list(color='blue'))%>%
@@ -41,3 +41,9 @@ fig <- fig %>%
 fig
 ```
 
+
+<div class="alert alert-light" role="alert" style="width:100%">
+Data source: World Bank Data, https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG, accessed 8 November 2021.
+
+Source: Arora A 2020, ‘Australia Imposes 'world's Toughest' COVID Lockdown; Outdoor Exercise, Dog-walking Banned’, Republic World, accessed 9 November 2021.
+</div>

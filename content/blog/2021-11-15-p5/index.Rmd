@@ -13,6 +13,13 @@ description: Description for the page
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 ```
 
+##### The Northern Territory has a larger working population (71.3%), while other areas are similar.
+
+##### From the perspective of time, the working population of all states in Australia is declining.
+
+##### The aging trend is a common experience of developed countries. However, Australia's comfortable and beautiful environment also attracts immigrants. Hence, the government believes that immigration policies may reduce the aging process (Australian Bureau of Statistics 2021). It can be seen that the government is aware of the population problem and has taken measures to control it. 
+
+
 ```{r}
 library(highcharter) 
 library(tidyverse)
@@ -24,7 +31,6 @@ population = population %>%
     filter(LABEL != "Australia")
 ```
 
-In 2016
 
 ```{r}
 hcmap(
@@ -41,7 +47,6 @@ hcmap(
     hc_mapNavigation(enabled = TRUE) 
 ```
 
-Trend
 
 ```{r}
 population = population %>% 
@@ -67,3 +72,13 @@ fig <- fig %>%
 
 fig
 ```
+
+
+
+
+<div class="alert alert-light" role="alert" style="width:100%">
+Data source: Australian Bureau of Statistics 2011-2016.
+
+Source: Australian Bureau of Statistics 2021, ‘Labour Force, Australia’
+https://www.abs.gov.au/statistics/labour/employment-and-unemployment/labour-force-australia/latest-release.
+</div>

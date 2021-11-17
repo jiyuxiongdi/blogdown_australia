@@ -12,6 +12,10 @@ description: Description for the page
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 ```
 
+##### It can be roughly observed from the map that Asia and Africa are experiencing faster economic growth. What's interesting is that the population structure of these countries and regions is dominated by young people, and the population growth rate is relatively fast. Of course, these regions are mostly developing countries, so the potential for growth is also great. In 2016, Australia's GDP growth rate ranked 44th among these countries and regions. However, the GDP growth rate ranks 11th among developed countries.
+
+##### The interactive design can help viewers to clearly see the numerical values of each country with the movement of the mouse and you can easily compare them in the shadows below the map. 
+
 ```{r}
 library(highcharter) 
 library(tidyverse)
@@ -31,7 +35,7 @@ dat <- rename(dat, "iso-a3" = a3)
 dat = inner_join(dat, gdp %>% select(Country.Code, gdp) %>% rename("iso-a3" = Country.Code))
 ```
 
-In 2016, Australia is the #44 of all countries and regions in GDP growth. 
+##### In 2016, Australia is the #44 of all countries and regions in GDP growth. 
 
 ```{r}
 hcmap(
@@ -46,4 +50,12 @@ hcmap(
 ) %>%
     hc_mapNavigation(enabled = TRUE) 
 ```
+
+
+
+<div class="alert alert-light" role="alert">
+Data source: World Bank Data, https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG, accessed 8 November 2021.
+</div>
+ 
+
 
